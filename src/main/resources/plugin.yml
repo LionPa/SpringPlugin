@@ -1,0 +1,7 @@
+name: SpringPlugin
+version: '${project.version}'
+main: io.lionpa.springplugin.SpringPlugin
+api-version: '1.20'
+authors: [LionPa]
+description: Плагин для видео
+website: https://github.com/LionPa
