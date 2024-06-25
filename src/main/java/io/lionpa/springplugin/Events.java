@@ -18,6 +18,9 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Transformation;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Events implements Listener {
     private static final int MODEL_PARTS = 5;
     @EventHandler
@@ -80,12 +83,12 @@ public class Events implements Listener {
         interaction.setInteractionHeight(0.5f);
         interaction.setInteractionWidth(1);
 
-        int[] subsId = new int[sub.length];
-        for (int i = 0; i < sub.length; i++){
-            subsId[i] = sub[i].getEntityId();
+        List<String> subsId = new ArrayList<>();
+        for (Entity entity : sub) {
+            subsId.add(String.valueOf(entity.getUniqueId()));
         }
 
-        interaction.getPersistentDataContainer().set(SUBS_KEY,PersistentDataType.INTEGER_ARRAY,subsId);
+        interaction.getPersistentDataContainer().set(SUBS_KEY,PersistentDataType.LIST.strings(),subsId);
 
         return interaction;
 
@@ -206,12 +209,12 @@ public class Events implements Listener {
     private static ItemDisplay[] getModel(Interaction main){
         ItemDisplay[] model = new ItemDisplay[MODEL_PARTS];
 
-        int[] modelPartIds = main.getPersistentDataContainer().get(SUBS_KEY,PersistentDataType.INTEGER_ARRAY);
+        List<String> modelPartIds = main.getPersistentDataContainer().get(SUBS_KEY,PersistentDataType.LIST.strings());
         for (int i = 0; i < MODEL_PARTS; i++){
-            int id = modelPartIds[i];
+            String uuid = modelPartIds.get(i);
             ItemDisplay part = null;
             for (ItemDisplay display : main.getLocation().getNearbyEntitiesByType(ItemDisplay.class,1f,1f,1f)){
-                if (display.getEntityId() != id) continue;
+                if (!String.valueOf(display.getUniqueId()).equals(uuid)) continue;
                 part = display;
             }
             model[i] = part;
