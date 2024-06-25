@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SpringPlugin">
+    <output-path>D:/.Plugins/Servers/1.20.2 server/plugins</output-path>
+    <root id="archive" name="SpringPlugin.jar">
+      <element id="module-output" name="SpringPlugin" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
+    </root>
+  </artifact>
+</component>
